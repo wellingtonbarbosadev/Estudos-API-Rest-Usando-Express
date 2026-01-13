@@ -33,6 +33,7 @@ export function myMiddleware(
   // Loga no console sempre que uma requisição passa por este middleware
   console.log("Passou pelo Middleware Global!");
 
+  request.user_id = "12345";
   /**
    * Chama next() para passar o controle para o próximo middleware ou rota
    * Se não chamar next(), a requisição ficará travada e não chegará à rota final

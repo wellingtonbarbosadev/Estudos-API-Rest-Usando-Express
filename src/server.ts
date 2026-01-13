@@ -3,6 +3,7 @@
  * Express é um framework minimalista para Node.js que facilita a criação de APIs
  */
 import express from "express";
+import { routes } from "./routes/index.js";
 
 /**
  * Importando os middlewares customizados
@@ -23,6 +24,9 @@ const PORT = 3333;
  */
 const app = express();
 
+app.use(myMiddleware);
+
+app.use(routes);
 /**
  * Middleware nativo do Express para interpretar JSON no corpo das requisições
  * Sem isso, não conseguimos receber dados JSON no body das requisições POST/PUT
@@ -34,45 +38,6 @@ app.use(express.json());
  * Middlewares globais são úteis para logging, autenticação, etc.
  */
 app.use(myMiddleware);
-
-/**
- * Rota GET raiz (/)
- * Retorna uma mensagem simples de boas-vindas
- * É útil para testar se o servidor está funcionando
- */
-app.get("/", (request, response) => {
-  response.send("Hello World Express!");
-});
-
-/**
- * Rota GET /products com query parameters e middleware local
- * mySecondMiddleware será executado APENAS nesta rota (middleware local)
- * Query parameters são acessados via request.query (ex: /products?page=1&limit=10)
- */
-app.get("/products", mySecondMiddleware, (request, response) => {
-  const { page, limit } = request.query;
-  response.send(`Página ${page} de ${limit}`);
-});
-
-/**
- * Rota GET /products/:id com route parameter
- * Route parameters são acessados via request.params
- * O :id é um parâmetro dinâmico na URL (ex: /products/123)
- */
-app.get("/products/:id", (request, response) => {
-  const { id } = request.params;
-  response.send(id);
-});
-
-/**
- * Rota POST /products para criar um novo produto
- * Recebe dados no corpo da requisição (request.body)
- * Retorna status 201 (Created) indicando que o recurso foi criado com sucesso
- */
-app.post("/products", (request, response) => {
-  const { name, price } = request.body;
-  response.status(201).json({ name, price });
-});
 
 /**
  * Inicia o servidor na porta especificada
