@@ -1,16 +1,8 @@
-/**
- * Importando o framework Express para criar o servidor web
- * Express é um framework minimalista para Node.js que facilita a criação de APIs
- */
 import express from "express";
+import type { Request, Response, NextFunction } from "express";
 import { routes } from "./routes/index.js";
 
-/**
- * Importando os middlewares customizados
- * Middlewares são funções que interceptam requisições antes de chegarem às rotas
- */
 import { myMiddleware } from "./middlewares/my-middleware.js";
-import { mySecondMiddleware } from "./middlewares/my-2nd-middleware.js";
 
 const PORT = 3333;
 
@@ -20,5 +12,11 @@ app.use(express.json());
 app.use(myMiddleware);
 
 app.use(routes);
+
+app.use(
+  (error: any, request: Request, response: Response, next: NextFunction) => {
+    response.status(500).json({ message: error.message });
+  }
+);
 
 app.listen(PORT, () => console.log(`Server is running on port ${PORT}`));
