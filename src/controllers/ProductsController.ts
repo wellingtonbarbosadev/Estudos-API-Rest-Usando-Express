@@ -1,4 +1,5 @@
 import type { Request, Response } from "express";
+import { AppError } from "../utils/AppError.js";
 
 export class ProductsController {
   /**
@@ -18,8 +19,10 @@ export class ProductsController {
   }
 
   create(request: Request, response: Response) {
-    console.log(request.body);
     const { name, price } = request.body;
+    if (!name) {
+      throw new AppError("The product name is required");
+    }
     response.status(201).json({ name, price, user_id: request.user_id });
   }
 }
