@@ -20,9 +20,22 @@ export class ProductsController {
 
   create(request: Request, response: Response) {
     const { name, price } = request.body;
-    if (!name || !price) {
-      throw new AppError("The product name and price are required");
+    if (!name) {
+      throw new AppError("The product name is required");
     }
+
+    if (name.trim().length < 6) {
+      throw new AppError("The product name must be at least 6 characters long");
+    }
+
+    if (!price) {
+      throw new AppError("The product price is required");
+    }
+
+    if (price < 0) {
+      throw new AppError("The product price must be a positive number");
+    }
+
     response.status(201).json({ name, price, user_id: request.user_id });
   }
 }
