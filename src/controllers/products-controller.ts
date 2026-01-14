@@ -1,5 +1,6 @@
 import type { Request, Response } from "express";
 import { AppError } from "../utils/app-error.js";
+import { z } from "zod";
 
 export class ProductsController {
   /**
@@ -19,22 +20,28 @@ export class ProductsController {
   }
 
   create(request: Request, response: Response) {
-    const { name, price } = request.body;
-    if (!name) {
-      throw new AppError("The product name is required");
-    }
+    const bodySchema = z.object({
+      name: z.string(),
+      price: z.number(),
+    });
 
-    if (name.trim().length < 6) {
-      throw new AppError("The product name must be at least 6 characters long");
-    }
+    const { name, price } = bodySchema.parse(request.body);
 
-    if (!price) {
-      throw new AppError("The product price is required");
-    }
+    // if (!name) {
+    //   throw new AppError("The product name is required");
+    // }
 
-    if (price < 0) {
-      throw new AppError("The product price must be a positive number");
-    }
+    // if (name.trim().length < 6) {
+    //   throw new AppError("The product name must be at least 6 characters long");
+    // }
+
+    // if (!price) {
+    //   throw new AppError("The product price is required");
+    // }
+
+    // if (price < 0) {
+    //   throw new AppError("The product price must be a positive number");
+    // }
 
     response.status(201).json({ name, price, user_id: request.user_id });
   }

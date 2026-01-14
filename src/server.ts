@@ -4,6 +4,7 @@ import { routes } from "./routes/index.js";
 
 import { myMiddleware } from "./middlewares/my-middleware.js";
 import { AppError } from "./utils/app-error.js";
+import { ZodError, z } from "zod";
 
 const PORT = 3333;
 
@@ -19,6 +20,13 @@ app.use(
     if (error instanceof AppError) {
       return response.status(error.statusCode).json({ message: error.message });
     }
+
+    if (error instanceof ZodError) {
+      return response
+        .status(400)
+        .json({ message: "Validation Error!", issues: z.treeifyError(error) });
+    }
+
     response.status(500).json({ message: error.message });
   }
 );
