@@ -53,12 +53,14 @@ API-REST/
 ## 📦 Instalação
 
 1. Clone o repositório:
+
 ```bash
-git clone <url-do-repositorio>
+git clone https://github.com/wellingtonbarbosadev/Estudos-API-Rest-Usando-Express
 cd API-REST
 ```
 
 2. Instale as dependências:
+
 ```bash
 npm install
 ```
@@ -80,15 +82,18 @@ O servidor estará disponível em: `http://localhost:3333`
 ### Products
 
 #### Listar produtos
+
 ```http
 GET /products
 ```
 
 **Query Parameters (opcionais):**
+
 - `page` - Número da página
 - `limit` - Quantidade de itens por página
 
 **Resposta:**
+
 ```json
 {
   "message": "Página {page} de {limit}"
@@ -96,11 +101,13 @@ GET /products
 ```
 
 #### Criar produto
+
 ```http
 POST /products
 ```
 
 **Body:**
+
 ```json
 {
   "name": "Nome do Produto",
@@ -109,10 +116,12 @@ POST /products
 ```
 
 **Validações:**
+
 - `name`: string, mínimo 6 caracteres, obrigatório
 - `price`: number, deve ser positivo, obrigatório
 
 **Resposta (201):**
+
 ```json
 {
   "name": "Nome do Produto",
@@ -130,6 +139,7 @@ A API implementa um sistema robusto de tratamento de erros:
 - **Erros Genéricos**: Capturados e retornados com status 500
 
 ### Exemplo de resposta de erro de validação:
+
 ```json
 {
   "message": "Validation Error!",
@@ -147,7 +157,9 @@ A API implementa um sistema robusto de tratamento de erros:
 ## 🏗️ Arquitetura
 
 ### Controllers
+
 Os controllers seguem o padrão REST:
+
 - `index` - GET para listar vários registros
 - `show` - GET para exibir um registro específico
 - `create` - POST para criar um registro
@@ -155,9 +167,11 @@ Os controllers seguem o padrão REST:
 - `remove` - DELETE para deletar um registro
 
 ### Middlewares
+
 Sistema de middlewares em cascata para processamento de requisições.
 
 ### Validação
+
 Utiliza Zod para validação de schemas com mensagens de erro customizadas.
 
 ## 👨‍💻 Autor
