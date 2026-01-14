@@ -1,5 +1,5 @@
 import type { Request, Response } from "express";
-import { AppError } from "../utils/AppError.js";
+import { AppError } from "../utils/app-error.js";
 
 export class ProductsController {
   /**

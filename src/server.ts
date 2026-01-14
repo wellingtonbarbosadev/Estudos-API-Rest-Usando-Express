@@ -3,7 +3,7 @@ import type { Request, Response, NextFunction } from "express";
 import { routes } from "./routes/index.js";
 
 import { myMiddleware } from "./middlewares/my-middleware.js";
-import { AppError } from "./utils/AppError.js";
+import { AppError } from "./utils/app-error.js";
 
 const PORT = 3333;
 

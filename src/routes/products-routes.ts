@@ -1,7 +1,7 @@
 import { json, Router } from "express";
 import { mySecondMiddleware } from "../middlewares/my-2nd-middleware.js";
 import { myMiddleware } from "../middlewares/my-middleware.js";
-import { ProductsController } from "../controllers/ProductsController.js";
+import { ProductsController } from "../controllers/products-controller.js";
 
 export const productsRoutes = Router();
 productsRoutes.use(json());
